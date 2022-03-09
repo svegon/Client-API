@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "${modid}",
+  "version": "${version}",
+
+  "name": "Client API",
+  "description": "This mod works as an API for client mods, especially scripting and informing.",
+  "authors": [
+    "Svegon"
+  ],
+  "contact": {
+    "homepage": "https://github.com/svegon/fabric-template",
+    "sources": "https://github.com/svegon/fabric-template"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/${modid}/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.svegon.${modid}.CAPIMain"
+    ],
+    "main": [
+      "com.svegon.${modid}.CAPIMain"
+    ],
+    "server": [
+      "com.svegon.${modid}.CAPIMain"
+    ]
+  },
+  "mixins": [
+    "${modid}.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": ">=${min_fabric_version}",
+    "minecraft": [
+      "1.18.x",
+      "1.17.x"
+    ],
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
