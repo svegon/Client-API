@@ -1,5 +1,5 @@
 buildscript {
-	ext.minecraftVersion = project.minecraft_version_1_18
+	ext.minecraftVersion = project.minecraft_version
 	ext.minFabric = fabric_version_1_17
 	ext.javaVersionShort = 17
 
@@ -14,7 +14,7 @@ buildscript {
 		ext.fabricAPI = fabric_version_1_16
 	} else if (minecraftVersion.startsWith("1.17")) {
 		ext.yarnMapping = project.yarn_mappings_1_17
-		ext.fabricAPI = fabric_version_1_18
+		ext.fabricAPI = fabric_version_1_17
 	} else if (minecraftVersion.startsWith("1.18")) {
 		ext.yarnMapping = project.yarn_mappings_1_18
 		ext.fabricAPI = fabric_version_1_18
@@ -28,8 +28,7 @@ plugins {
 	id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = sourceCompatibility
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -46,11 +45,14 @@ repositories {
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	mappings "net.fabricmc:yarn:${project.yarnMapping}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabricAPI}"
+
+	// extended java utils
+	implementation "com.github.svegon:Extended-Java-Utils:extended-java-utils-${project.eju}"
 }
 
 processResources {
@@ -60,7 +62,7 @@ processResources {
 		expand "archives_base_name": project.archivesBaseName,
 				"version": project.version,
 				"group": project.group,
-				"capi": project.modid,
+				"modid": project.modid,
 				"yarn_mapping": project.yarnMapping,
 				"minecraft_version": project.minecraftVersion,
 				"loader_version": project.loader_version,
